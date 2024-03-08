@@ -1,0 +1,25 @@
+\documentclass[openany]{book}
+
+\input{./config/packages}
+\input{./config/colors}
+\input{./config/fonts}
+\input{./config/commands}
+\input{./config/page}
+\input{./config/header}
+\input{./config/chapter}
+\input{./config/section}
+
+\begin{document}
+
+\newpage
+\thispagestyle{empty}
+\ % An empty page
+\newpage
+
+\setcounter{page}{2}
+
+\fontsize{12}{16}\selectfont
+	\include{./chapters/00-sommaires/chapter}
+	\include{./chapters/01-introduction-generale/chapter}
+	\include{./chapters/02-conclusion-generale/chapter}
+\end{document}

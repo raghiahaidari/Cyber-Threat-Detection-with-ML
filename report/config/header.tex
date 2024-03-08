@@ -1,0 +1,29 @@
+\pagestyle{fancy}
+
+\fancypagestyle{default}{
+	\fancyhf{}
+	\fancyhead[L]{\fontsize{8pt}{24pt}\color{text}\titlefont \textbf{Partie \thechapter}}
+	\fancyhead[R]{\fontsize{8pt}{24pt}\color{text}\titlefont \textbf{\Chaptername}}
+	\renewcommand{\headrule}{\color{border}\hrule width\headwidth height\headrulewidth\vskip-\headrulewidth}
+	\setlength{\headsep}{36pt}
+	\setlength{\footskip}{36pt}
+	\fancyfoot[C]{\fontsize{10pt}{0pt}\color{text}\titlefont \textbf{\thepage}}
+}
+
+% Set the header & footer for chapter pages
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[L]{\fontsize{8pt}{24pt}\color{text}\titlefont \textbf{Partie \thechapter}}
+	\fancyhead[R]{\fontsize{8pt}{24pt}\color{text}\titlefont \textbf{\Chaptername}}
+	\renewcommand{\headrule}{\color{border}\hrule width\headwidth height\headrulewidth\vskip-\headrulewidth}
+	\setlength{\headsep}{36pt}
+	\setlength{\footskip}{36pt}
+	\fancyfoot[C]{\fontsize{10pt}{32pt}\color{text}\titlefont \textbf{\thepage}}
+}
+
+\fancypagestyle{noheader}{
+	\fancyhf{}
+	\renewcommand{\headrule}{}
+	\fancyfoot[C]{\fontsize{10pt}{32pt}\color{text}\titlefont \textbf{\thepage}}
+}
+

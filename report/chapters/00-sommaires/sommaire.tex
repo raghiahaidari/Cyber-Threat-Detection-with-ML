@@ -1,0 +1,15 @@
+\renewcommand*\contentsname{Table of contents}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+
+% Save the current \parskip value in a length variable
+\newlength{\originalparskip}
+\setlength{\originalparskip}{\parskip}
+
+\setlength{\parskip}{5pt}
+
+\clearpage
+\tableofcontents
+\thispagestyle{empty}
+
+% Restore the original \parskip value
+\setlength{\parskip}{\originalparskip}

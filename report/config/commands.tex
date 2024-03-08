@@ -1,0 +1,3 @@
+\renewcommand{\thechapter}{\Roman{chapter}}
+\let\Chaptermark\chaptermark
+\def\chaptermark#1{\def\Chaptername{#1}\Chaptermark{#1}}
