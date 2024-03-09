@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from joblib import load
 from time import time
 from scapy.all import rdpcap
@@ -7,6 +8,15 @@ from machine_learning.features.utils import write_to_csv, traffic_stats_summary
 from machine_learning.model.detect import classify_traffic
 
 app = FastAPI()
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def read_root():
