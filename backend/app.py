@@ -3,7 +3,7 @@ from joblib import load
 from time import time
 from scapy.all import rdpcap
 
-from machine_learning.features.utils import write_to_csv
+from machine_learning.features.utils import write_to_csv, traffic_stats_summary
 
 app = FastAPI()
 
@@ -28,7 +28,10 @@ def detect_ddos(file: UploadFile):
     packets = rdpcap(filename)
     write_to_csv(packets, f"./tmp/{csv_filename}")
 
-    # TODO: Feature engineering
+    # Feature engineering
+    batches_file_name = "./tmp/batches-" + csv_filename
+    df = traffic_stats_summary(f"./tmp/{csv_filename}", None)
+    df.to_csv(batches_file_name, index = False)
 
     # Load the model
     model = load("./machine_learning/model.sav")
