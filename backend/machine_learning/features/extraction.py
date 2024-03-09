@@ -9,7 +9,7 @@ ddos = "../data/dataset/ddos-traffic.pcap"
 csv_normal = "../data/csv/normal.csv"
 csv_ddos = "../data/csv/ddos.csv"
 
-# Create the output directories if they don't exist
+# Create the output directory if they don't exist
 os.makedirs("../data/csv", exist_ok=True)
 
 # Read normal traffic pcap file
