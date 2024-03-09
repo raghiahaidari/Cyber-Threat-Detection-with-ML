@@ -59,7 +59,7 @@
 			@hide="showDetails = false"
 		/>
 	</div>
-	<div class="flex flex-col items-center justify-center w-full h-full" v-else>
+	<div class="flex flex-col items-center justify-center w-full h-full text-center" v-else>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24"

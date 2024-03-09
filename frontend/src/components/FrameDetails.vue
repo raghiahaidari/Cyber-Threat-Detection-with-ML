@@ -63,9 +63,6 @@
 										<th scope="col" class="px-6 py-3 whitespace-nowrap">
 											Protocol
 										</th>
-										<th scope="col" class="px-6 py-3 whitespace-nowrap">
-											Length
-										</th>
 									</tr>
 								</thead>
 								<tbody class="border">
@@ -91,9 +88,6 @@
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap">
 											{{ frame.protocol }}
-										</td>
-										<td class="px-6 py-4 whitespace-nowrap">
-											{{ frame.length }}
 										</td>
 									</tr>
 								</tbody>

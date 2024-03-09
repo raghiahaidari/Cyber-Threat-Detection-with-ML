@@ -124,82 +124,17 @@ export default {
 		async analyseTraffic() {
 			this.loading = true;
 
-			// Wait for 2 seconds to simulate the analysis
-			await new Promise((resolve) => setTimeout(resolve, 2000));
-			const analysis = [
-				{
-					from: 1,
-					to: 100,
-					status: "ddos",
-					content: [
-						{
-							frame: 1,
-							ip: {
-								src: "192.168.1.1",
-								dst: "192.168.1.5",
-							},
-							protocol: "TCP",
-							length: 100,
-							port: {
-								src: 80,
-								dst: 1234,
-							},
-						},
-						{
-							frame: 2,
-							ip: {
-								src: "192.168.1.1",
-								dst: "192.168.1.5",
-							},
-							protocol: "TCP",
-							length: 100,
-							port: {
-								src: 80,
-								dst: 1234,
-							},
-						},
-						{
-							frame: 3,
-							ip: {
-								src: "192.168.1.1",
-								dst: "192.168.1.5",
-							},
-							protocol: "TCP",
-							length: 100,
-							port: {
-								src: 80,
-								dst: 1234,
-							},
-						},
-					],
-				},
-				{
-					from: 101,
-					to: 200,
-					status: "normal",
-					content: [],
-				},
-				{
-					from: 201,
-					to: 300,
-					status: "ddos",
-					content: [],
-				},
-				{
-					from: 301,
-					to: 400,
-					status: "normal",
-					content: [],
-				},
-				{
-					from: 401,
-					to: 432,
-					status: "normal",
-					content: [],
-				},
-			];
+			// Send the file to the server for analysis
+			const formData = new FormData();
+			formData.append("file", this.file);
+			const response = await fetch("http://127.0.0.1:8000/detect", {
+				method: "POST",
+				body: formData,
+			});
 
-			this.$emit("analysis-finished", analysis);
+			// Get the analysis results
+			const analysis = await response.json();
+			this.$emit("analysis-finished", analysis.data);
 
 			this.loading = false;
 		},
