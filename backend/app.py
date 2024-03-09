@@ -4,6 +4,7 @@ from time import time
 from scapy.all import rdpcap
 
 from machine_learning.features.utils import write_to_csv, traffic_stats_summary
+from machine_learning.model.detect import classify_traffic
 
 app = FastAPI()
 
@@ -26,18 +27,41 @@ def detect_ddos(file: UploadFile):
     # Extract features from the file
     csv_filename = filename.split("/")[-1].split(".")[0] + ".csv"
     packets = rdpcap(filename)
-    write_to_csv(packets, f"./tmp/{csv_filename}")
+    packets_df = write_to_csv(packets, f"./tmp/{csv_filename}")
 
     # Feature engineering
     batches_file_name = "./tmp/batches-" + csv_filename
     df = traffic_stats_summary(f"./tmp/{csv_filename}", None)
     df.to_csv(batches_file_name, index = False)
 
-    # Load the model
-    model = load("./machine_learning/model.sav")
+    # Classify the traffic
+    df = classify_traffic(df, "./machine_learning/model.sav")
 
-    # TODO: Predict the class of the traffic
-    # TODO: Transform the prediction back to a human-readable format
-    # TODO: clear the tmp folder
+    # Build the response object
+    response = df.to_dict(orient="records")
+    for item, i in zip(response, range(len(response))):
+        item["from"] = i * 100 + 1
+        item["to"] = (i + 1) * 100
+        item["status"] = item["status"]
 
-    return {"data": "DDOS Attack Detected"}
+        # Extract the content of the batch
+        batch = packets_df.iloc[(item["from"] - 1):item["to"]]
+        batch = batch.to_dict(orient="records")
+
+        # Add the batch to the response
+        item["content"] = []
+        for packet in batch:
+            item["content"].append({
+                "frame": packet["frame_number"],
+                "ip": {
+                    "src": packet["src_addr"],
+                    "dst": packet["dst_addr"]
+                },
+                "port": {
+                    "src": packet["src_port"],
+                    "dst": packet["dst_port"]
+                },
+                "protocol": "TCP" if packet["protocol"] == 6 else "UDP",
+            })
+
+    return {"data": response}
