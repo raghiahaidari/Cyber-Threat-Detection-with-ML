@@ -1,6 +1,9 @@
 from fastapi import FastAPI, UploadFile, HTTPException
 from joblib import load
 from time import time
+from scapy.all import rdpcap
+
+from machine_learning.features.utils import write_to_csv
 
 app = FastAPI()
 
@@ -20,7 +23,11 @@ def detect_ddos(file: UploadFile):
     with open(filename, "wb") as buffer:
         buffer.write(file.file.read())
 
-    # TODO: Extract features from the file
+    # Extract features from the file
+    csv_filename = filename.split("/")[-1].split(".")[0] + ".csv"
+    packets = rdpcap(filename)
+    write_to_csv(packets, f"./tmp/{csv_filename}")
+
     # TODO: Feature engineering
 
     # Load the model
