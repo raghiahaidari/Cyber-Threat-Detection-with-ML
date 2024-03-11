@@ -2,3 +2,9 @@ fastapi
 uvicorn[standard]
 joblib
 python-multipart
+numpy
+pandas
+matplotlib
+sikit-learn
+seaborn
+scapy
