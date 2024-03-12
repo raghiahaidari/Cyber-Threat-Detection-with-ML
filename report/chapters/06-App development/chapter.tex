@@ -49,6 +49,18 @@ The frontend uses Vue.js components to create a user-friendly interface for uplo
 
 \section{Deployment}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{./assets/images/architecture.png}
+	\caption{Architecture of the application}
+\end{figure}
+
+The application architecture is designed to detect DDoS attacks from PCAP files. It consists of two main components: a \textbf{Vue.js} frontend application served by \textbf{Nginx} on port 80 and an API deployed using \textbf{Docker} on port 8000. The frontend provides a user interface for uploading PCAP files, while the API, built with \textbf{FastAPI}, processes these files to detect potential DDoS attacks.
+
+The use of Docker for the API allows for easy deployment and scalability, as new instances of the API can be spun up quickly to handle increased traffic or processing demands. Overall, this architecture provides a scalable and efficient wrapper for our detecting DDoS attacks solution.
+
+\clearpage
+
 \section{Preview}
 \begin{figure}[h]
 	\centering
