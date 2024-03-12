@@ -40,9 +40,12 @@ def detect_ddos(file: UploadFile):
     packets_df = write_to_csv(packets, f"./tmp/{csv_filename}")
 
     # Feature engineering
+    relevant_features = ['ip.proto', 'ip.src.len.mean', 'ip.src.len.median', 'ip.src.len.var', 'ip.src.len.std', 'ip.src.len.cv', 'ip.src.len.rte', 'ip.dst.len.mean', 'ip.dst.len.median', 'ip.dst.len.var', 'ip.dst.len.std', 'ip.dst.len.cv', 'ip.dst.len.rte', 'sport.mean', 'sport.median', 'sport.var', 'sport.std', 'sport.cv', 'sport.rte', 'dport.mean', 'dport.median', 'dport.var', 'dport.std', 'dport.cv', 'dport.rte', 'tcp.flags.mean', 'tcp.flags.median', 'tcp.flags.var', 'tcp.flags.std', 'tcp.flags.cv', 'tcp.flags.rte', 'status']
     batches_file_name = "./tmp/batches-" + csv_filename
     df = traffic_stats_summary(f"./tmp/{csv_filename}", None)
+    df = df[relevant_features]
     df.to_csv(batches_file_name, index = False)
+    
 
     # Classify the traffic
     df = classify_traffic(df, "./machine_learning/model.sav")
