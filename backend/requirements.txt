@@ -5,7 +5,7 @@ python-multipart
 numpy
 pandas
 matplotlib
-sikit-learn
+scikit-learn
 seaborn
 scapy
-PIL
+Pillow
