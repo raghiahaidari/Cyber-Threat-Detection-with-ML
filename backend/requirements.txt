@@ -8,3 +8,4 @@ matplotlib
 sikit-learn
 seaborn
 scapy
+PIL
