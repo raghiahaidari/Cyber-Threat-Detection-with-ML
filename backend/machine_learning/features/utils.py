@@ -1,7 +1,7 @@
 from scapy.layers.inet import IP, ICMP, TCP, UDP
 import pandas as pd
 
-PCAP_COLUMNS = ['ip.proto', 'ip.src.len.mean', 'ip.src.len.median', 'ip.src.len.var', 'ip.src.len.std', 'ip.src.len.entropy', 'ip.src.len.cv', 'ip.src.len.cvq', 'ip.src.len.rte', 'ip.dst.len.mean', 'ip.dst.len.median', 'ip.dst.len.var', 'ip.dst.len.std', 'ip.dst.len.entropy', 'ip.dst.len.cv', 'ip.dst.len.cvq', 'ip.dst.len.rte', 'sport.mean', 'sport.median', 'sport.var', 'sport.std', 'sport.entropy', 'sport.cv', 'sport.cvq', 'sport.rte', 'dport.mean', 'dport.median', 'dport.var', 'dport.std', 'dport.entropy', 'dport.cv', 'dport.cvq', 'dport.rte', 'tcp.flags.mean', 'tcp.flags.median', 'tcp.flags.var', 'tcp.flags.std', 'tcp.flags.entropy', 'tcp.flags.cv', 'tcp.flags.cvq', 'tcp.flags.rte']
+PCAP_COLUMNS = ['ip.proto', 'ip.src.len.mean', 'ip.src.len.median', 'ip.src.len.var', 'ip.src.len.std', 'ip.src.len.entropy', 'ip.src.len.cv', 'ip.src.len.cvq', 'ip.src.len.unique_ratio', 'ip.dst.len.mean', 'ip.dst.len.median', 'ip.dst.len.var', 'ip.dst.len.std', 'ip.dst.len.entropy', 'ip.dst.len.cv', 'ip.dst.len.cvq', 'ip.dst.len.unique_ratio', 'sport.mean', 'sport.median', 'sport.var', 'sport.std', 'sport.entropy', 'sport.cv', 'sport.cvq', 'sport.unique_ratio', 'dport.mean', 'dport.median', 'dport.var', 'dport.std', 'dport.entropy', 'dport.cv', 'dport.cvq', 'dport.unique_ratio', 'tcp.flags.mean', 'tcp.flags.median', 'tcp.flags.var', 'tcp.flags.std', 'tcp.flags.entropy', 'tcp.flags.cv', 'tcp.flags.cvq', 'tcp.flags.unique_ratio']
 PCAP_COLUMNS_DICT = {key: None for key in PCAP_COLUMNS}
 
 def extract_fields(pkt):
@@ -89,7 +89,7 @@ def generate_batch_df(df, status):
     df_summary['ip.src.len.entropy'] = int(0)
     df_summary['ip.src.len.cv'] = df_summary['ip.src.len.std'][0] / df_summary['ip.src.len.mean'][0]
     df_summary['ip.src.len.cvq'] = int(0)
-    df_summary['ip.src.len.rte'] = df['ip.src.len'].nunique() / df['ip.src.len'].size
+    df_summary['ip.src.len.unique_ratio'] = df['ip.src.len'].nunique() / df['ip.src.len'].size
 
     df_summary['ip.dst.len.mean'] = df['ip.dst.len'].mean()
     df_summary['ip.dst.len.median'] = df['ip.dst.len'].median()
@@ -98,7 +98,7 @@ def generate_batch_df(df, status):
     df_summary['ip.dst.len.entropy'] = int(0)
     df_summary['ip.dst.len.cv'] = df_summary['ip.dst.len.std'][0] / df_summary['ip.dst.len.mean'][0]
     df_summary['ip.dst.len.cvq'] = int(0)
-    df_summary['ip.dst.len.rte'] = df['ip.dst.len'].nunique() / df['ip.dst.len'].size
+    df_summary['ip.dst.len.unique_ratio'] = df['ip.dst.len'].nunique() / df['ip.dst.len'].size
 
     df_summary['sport.mean'] = df['src_port'].mean()
     df_summary['sport.median'] = df['src_port'].median()
@@ -107,7 +107,7 @@ def generate_batch_df(df, status):
     df_summary['sport.entropy'] = int(0)
     df_summary['sport.cv'] = df_summary['sport.std'][0] / df_summary['sport.mean'][0]
     df_summary['sport.cvq'] = int(0)
-    df_summary['sport.rte'] = df['src_port'].nunique() / df['src_port'].size
+    df_summary['sport.unique_ratio'] = df['src_port'].nunique() / df['src_port'].size
 
     df_summary['dport.mean'] = df['dst_port'].mean()
     df_summary['dport.median'] = df['dst_port'].median()
@@ -116,7 +116,7 @@ def generate_batch_df(df, status):
     df_summary['dport.entropy'] = int(0)
     df_summary['dport.cv'] = df_summary['dport.std'][0] / df_summary['dport.mean'][0]
     df_summary['dport.cvq'] =  int(0)
-    df_summary['dport.rte'] = df['dst_port'].nunique() / df['dst_port'].size
+    df_summary['dport.unique_ratio'] = df['dst_port'].nunique() / df['dst_port'].size
 
     df_summary['tcp.flags.mean'] = df['tcp_flags'].mean()
     df_summary['tcp.flags.median'] = df['tcp_flags'].median()
@@ -125,7 +125,7 @@ def generate_batch_df(df, status):
     df_summary['tcp.flags.entropy'] = int(0)
     df_summary['tcp.flags.cv'] = df_summary['tcp.flags.std'][0] / df_summary['tcp.flags.mean'][0]
     df_summary['tcp.flags.cvq'] = int(0)
-    df_summary['tcp.flags.rte'] = df['tcp_flags'].nunique() / df['tcp_flags'].size
+    df_summary['tcp.flags.unique_ratio'] = df['tcp_flags'].nunique() / df['tcp_flags'].size
 
     df_summary['status'] = status
     return df_summary

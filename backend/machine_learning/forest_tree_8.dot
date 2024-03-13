@@ -1,0 +1,25 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label="ip.src.len.median <= 8.5\ngini = 0.191\nsamples = 138\nvalue = [192, 23]\nclass = DDoS Traffic", fillcolor="#e89051"] ;
+1 [label="gini = 0.0\nsamples = 13\nvalue = [0, 19]\nclass = Normal Traffic", fillcolor="#399de5"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="dport.var <= 537955264.0\ngini = 0.04\nsamples = 125\nvalue = [192.0, 4.0]\nclass = DDoS Traffic", fillcolor="#e6843d"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label="sport.std <= 22767.075\ngini = 0.408\nsamples = 5\nvalue = [5, 2]\nclass = DDoS Traffic", fillcolor="#efb388"] ;
+2 -> 3 ;
+4 [label="gini = 0.0\nsamples = 4\nvalue = [5, 0]\nclass = DDoS Traffic", fillcolor="#e58139"] ;
+3 -> 4 ;
+5 [label="gini = 0.0\nsamples = 1\nvalue = [0, 2]\nclass = Normal Traffic", fillcolor="#399de5"] ;
+3 -> 5 ;
+6 [label="ip.dst.len.rte <= 0.05\ngini = 0.021\nsamples = 120\nvalue = [187, 2]\nclass = DDoS Traffic", fillcolor="#e5823b"] ;
+2 -> 6 ;
+7 [label="dport.cv <= 0.956\ngini = 0.245\nsamples = 8\nvalue = [12, 2]\nclass = DDoS Traffic", fillcolor="#e9965a"] ;
+6 -> 7 ;
+8 [label="(...)", fillcolor="#C0C0C0"] ;
+7 -> 8 ;
+9 [label="(...)", fillcolor="#C0C0C0"] ;
+7 -> 9 ;
+10 [label="gini = 0.0\nsamples = 112\nvalue = [175, 0]\nclass = DDoS Traffic", fillcolor="#e58139"] ;
+6 -> 10 ;
+}

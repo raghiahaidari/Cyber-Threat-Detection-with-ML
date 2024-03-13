@@ -1,0 +1,13 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label="ip.src.len.median <= 8.0\ngini = 0.153\nsamples = 134\nvalue = [197, 18]\nclass = DDoS Traffic", fillcolor="#e78d4b"] ;
+1 [label="gini = 0.0\nsamples = 9\nvalue = [0, 13]\nclass = Normal Traffic", fillcolor="#399de5"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="ip.dst.len.median <= 8.0\ngini = 0.048\nsamples = 125\nvalue = [197, 5]\nclass = DDoS Traffic", fillcolor="#e6843e"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label="gini = 0.0\nsamples = 2\nvalue = [0, 5]\nclass = Normal Traffic", fillcolor="#399de5"] ;
+2 -> 3 ;
+4 [label="gini = 0.0\nsamples = 123\nvalue = [197, 0]\nclass = DDoS Traffic", fillcolor="#e58139"] ;
+2 -> 4 ;
+}
